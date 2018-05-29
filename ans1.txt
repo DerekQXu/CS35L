@@ -1,0 +1,269 @@
+IMPORTANT:
+I did the problems on my local machine running
+Debian 8 Jessie, GNU/Linux.
+I listed all the commands used... which can be
+applied to other machines such as the SEASNET
+server.
+
+===================================================
+
+1.
+HOW TO FIND:
+$man man
+> /word (searches for the string 'word' in manual)
+
+CONCLUSIONS:
+$man -k <specific word>
+
+FURTHER NOTES:
+As said in the manual, -k allows an option to search
+for a particular string in various manuals
+
+-----------------------------------------------------
+2.
+HOW TO FIND:
+$which cd
+$which wc
+
+CONCLUSIONS:
+/usr/local
+
+FURTHER NOTES:
+The $which command shows where programs are located.
+Another way using simpler commands is to $echo $PATH
+and for each directory in $PATH, use $ls to see if the
+program cd or wc is in that directory
+
+-----------------------------------------------------
+3.
+HOW TO FIND:
+$man ls
+$echo $PATH
+For each folder in $PATH:
+	$ls -a --sort=WORD
+	$man <one letter files in $PATH>
+	NOTE: $ls ? also works
+
+CONCLUSIONS:
+[ - check file types and compare values
+w - shows who is logged on and what they are doing
+X - a portable, network-transparent window system
+
+FURTHER NOTES:
+programs that can be executed straight from command line
+are stored in the $PATH variable. Everytime a command is
+run, the OS checks all directories in $PATH to find said
+command.
+
+-----------------------------------------------------
+4.
+HOW TO FIND:
+$which emacs
+$cd /usr/bin/emacs
+$ls -l emacs
+$man -k link
+$readlink /usr/bin/emacs
+
+CONCLUSIONS:
+/etc/alternatives/emacs
+
+FURTHER NOTES:
+the emacs that is used in the $PATH is a symbolic link.
+Therefore we need to find where this symbolic link leads
+to. The $readlink command shows the value of the symbpolic
+link.
+
+-----------------------------------------------------
+5.
+HOW TO FIND:
+$man chmod
+> /symbolic
+
+CONCLUSIONS:
+g+s: adds 'set user or group ID on execution' permission to group
+o-x: removes 'execute' permission from others
+
+FURTHER NOTE:
+As seen in the manual for $chmod, the format of symbolic mode
+is [ugoa] [[-+=][perms...]] where:
+	ugo is user/group/others/all
+	-+= is remove/add/add (and remove rest) spec. permission 
+	perms is the permissions
+
+-----------------------------------------------------
+6.
+HOW TO FIND:
+$man find
+> /time
+> /ctime
+> /q
+$find /usr/ -ctime -21
+NOTE: ctime denotes a time elapsed in days
+
+CONCULSIONS:
+-ctime -21
+
+FURTHER NOTE:
+using find on the root directory /, I ran into a premission
+error, /usr/ was the only directory that I could execute
+find on.
+
+
+-----------------------------------------------------
+7.
+HOW TO FIND:
+$man find
+> /directory
+> /q
+$find /usr/ -type d -ctime -21 > junk.txt
+$wc -l junk.txt
+$rm junk.txt
+NOTE: -type d finds directories; -type l finds symbolic's
+
+CONCLUSIONS:
+37
+
+FURTHER NOTE:
+Breakdown of the commands:
+find /usr/ looks in the /usr/ directory
+-ctime -21 denotes the time (last 21days or 3weeks)
+> junk.txt put the output into junk.txt
+wc -l junk.txt read how many lines/entries are recorded
+
+-----------------------------------------------------
+8.
+HOW TO FIND:
+$which find
+NOTE: Output was: /usr/bin/find
+$find /usr/bin -type l > junk.txt
+$wc -l junk.txt
+$rm junk.txt
+
+CONCLUSIONS:
+571
+
+FURTHER NOTE:
+see 6.FURTHER_NOTE for explanation
+
+-----------------------------------------------------
+9.
+HOW TO FIND:
+$cd /usr/lib
+$man ls
+> /time
+> /q
+$ls -t -l
+NOTE: -t sorts by modification time
+NOTE: if the file type is -, then it is a regular file
+
+CONCLUSIONS:
+libutempter.so.1.1.5
+
+-----------------------------------------------------
+10
+HOW TO FIND:
+$locale
+$man locale
+NOTE: manual says: "See also: localedef"
+$man localedef
+NOTE: localedef compiles locale definition files
+$man find
+$cd /usr
+$find -name locale
+NOTE: I tried this in the root directory /, but was not able
+	to do such due to invalid PERMISSIONS
+
+CONCLUSIONS:
+As seen in the locale manual, locale is a POSIX concept which
+defines the specific character set (ex. ASCII) being used by
+the machine for the particular location.
+By executing $locale, the output displays 2 environment
+variabls, LANG and LANGUAGE. Environment variables exist at
+runtime and are not stored in files.
+As seen in localedef, which is used to compile locale, the
+binary data that stores charmap and input files is located
+in an "output path". This output path falls under 3 categories:
+1. it is defined during compilation
+2. it is in /usr/lib/locale
+3. it is in /usr/lib/locale/localr-archive
+The custom compilization in the manual for locale version 2.19
+is in the ./wrk directory, using localedef from the $HOME/.locale
+directory.
+Finally, by searching for locale in the directory /usr/ I found
+the following directories (aside form usr/bin where the locale
+program is located):
+./include/c++/4.9/locale
+./share/X11/locale
+./share/cups/locale
+./share/locale
+./lib/locale
+After looking into these directories, it is determined that 
+/usr/share/ can store some data that is used by locale (many of 
+the other directories are used in applications such as C++)
+
+-----------------------------------------------------
+11
+HOW TO FIND:
+> C-h a sort
+NOTE: searchs command list for the string 'sort'
+
+CONCLUSION
+List of commands:
+Buffer-menu-sort, sort-columns, sort-fields, sort-lines,
+sort-numeric-fields, sort-pages, sort-paragraphs,
+sort-regexp-fields, tabulated-list-col-sort, tabulated-list-sort
+
+-----------------------------------------------------
+12
+HOW TO FIND:
+> C-h f C-M-a
+> C-h f C-M-h
+
+CONCLUSION
+C-M-a:
+As said in the manual, C-M-a moves to beginning of current or
+preceding defun. Basically, navigates to the front of defun.
+A defun is macro used in LISP programming.
+C-M-h:
+As said in the manual, C-M-h puts around whole current or
+following defun. Basically, this marks the defun.
+ 
+-----------------------------------------------------
+13
+HOW TO FIND:
+> C-h f C-g
+
+CONCLUSION
+C-g:
+C-g cancels the command currently being executed. Clears the
+command buffer in the bottom of emacs.
+
+-----------------------------------------------------
+14
+HOW TO FIND:
+> C-h f yank
+
+CONCLUSION
+yank:
+yank pastes most recently deleted line. Basically pastes text.
+The command to yank is C-y.
+
+-----------------------------------------------------
+15
+HOW TO FIND:
+$touch ~/Documents/foo.txt
+$ls /usr/bin -l >> ~/Documents/foo.txt
+$emacs
+> C-x d /usr/bin
+> C-x C-w ~/Documents/bar.txt
+> C-x C-c
+
+CONCLUSION
+After inspecting foo.txt and bar.txt, I found only 1 difference. 
+Dired found the files: . and .. whereas $ls -l did not.
+The specific two line difference is the following:
+drwxr-xr-x  2 root   root        69632 Sep 29 09:26 .
+drwxr-xr-x 10 root   root         4096 Dec 30  2016 ..
+
+Output of dired and $ls -l both follow this structure:
+-rwxr-xr-x 1 root   root	39464 Mar 14  2015 [
