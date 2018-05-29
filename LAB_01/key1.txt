@@ -1,0 +1,212 @@
+Exercise 1.1
+
+Prior Setup:
+$curl web.cs.ucla.edu/classes/fall17/cs35L/assign/assign1.html >> assign1.html
+$cp assign1.html exer1.html
+$cp assign1.html exer2.html
+$cp assign1.html exer3.html
+$emacs exer1.html
+
+C-n M-f (Move down a line, move forward 1 word)
+
+C-s L a M-b (seaches for 'La', move back 1 word)
+
+C-s s e l f M-b (searches for 'self', move back 1 word)
+
+C-s a r r C-s M-b (searches for 'arr', next instance of term, move back 1 word)
+
+C-e (move to end of line)
+
+C-a (move to beginning of line)
+
+C-x C-c (exit emacs)
+
+No arrow keys were used.
+
+-----------------------------------------------------
+Exercise 1.2
+
+Prior Setup:
+$emacs exer2.html
+
+M-g M-g 1 8 Enter C-k (goto line 18, Delete everything in line from cursor*)
+
+C-s D E C-a C-k (search for 'DE', Go to front of line, Delete*)
+
+C-s w i k C-a C-k (search for 'wik', Go to front of line, Delete*)
+
+C-s < ! C-a C-k C-n C-k C-n C-k (search for '<!', Delete* 3 line comment)
+
+C-s < ! C-s C-a C-k (search for final comment, Go to front of line, Delete*)
+
+C-x C-c y
+
+For future exercise:
+$diff -u exer1.html exer2.html > exer2.diff
+	Note: my file looks good
+
+-----------------------------------------------------
+Exercise 1.3
+
+Prior Setup:
+$emacs exer3.html
+
+C-s A M-f C-f Delete 3 7 (search for 'A', move forward 1 word, change 1 -> 37) 
+
+C-s A M-f C-f Delete 3 7
+(NOTE: I could do search and replace here, but this used less keystrokes)
+(NOTE: search and replace command is used later in Excercise 1.4)
+
+C-s U T C-b M-d M-d S - A S C I I (search 'UT', kill 'TF-8', write 'S-ASCII')
+
+C-s o l C-s C-a Enter (search 'ol', front of line, insert new line)
+(NOTE: </ol> was the second instance of 'ol') 
+
+C-x C-c y
+
+For future exercise:
+$diff -u exer1.html exer3.html > exer3.diff
+	Note: my file looks good
+
+-----------------------------------------------------
+Exercise 1.4
+
+Prior Setup:
+$cat exer2.html exer2.diff >exer4.html
+$emacs exer4.html
+
+C-s < / h t Enter (navigate to start of diff output)
+C-s < ! C-b C-b C-SP C-e M-w (Mark edited text, Copy to Clipboard)
+M-< C-s L i C-n C-n C-y (Paste edited text to approp. location)
+(NOTE: I repeat this for the 4 places I edited; these commands are below)
+
+C-s < / h t Enter
+C-s < ! C-s C-b C-b C-SP C-e M-w
+M-< C-s L e a r C-n C-n C-y
+
+C-s < / h t Enter
+C-s < ! C-s C-s C-b C-b C-SP C-n C-n C-e M-w
+M-< C-s S u C-n C-n C-SP C-n C-n DEL C-y C-a DEL C-p DEL
+
+C-s < / h t Enter
+C-s < ! C-s C-s C-s C-b C-b C-SP C-e M-w
+M-< C-s < / h t C-n C-y
+
+C-f C-SP M-> C-w (delete all of diff output)
+(NOTE: my cursor was already at </html> from the previous command)
+(I got to diff output by going forward 1 character)
+
+C-_ C-_ C-_ (undo/redo last change to buffer x 3)
+
+M-< C-s < / h t Enter (Navigate to start of diff output)
+C-a C-n C-n < ! - - Enter (write the beginning of html comment)
+C-SP M-> M-x r e p l a c e - s t r i n g Enter - - > Enter - SP - > Enter
+(Search and replace already present comments)
+M-> - - > (write the end of html comment)
+
+M-< C-s < o l > (search for all ol's)
+(NOTE: you can use C-s to increment through all ol's)
+	Instance #: 7
+M-< C-SP M-> M-x r e p l a c e - s t r i n g Enter < o l > Enter < O l > Enter
+(replace all ol's)
+
+C-x C-c y
+
+For future excercise:
+$diff -u exer1.html exer4.html > exer4.diff
+	Note: my file looks good
+
+-----------------------------------------------------
+Exercise 1.5
+
+Prior Setup:
+$mkdir junk
+
+M-x c o m p i l e Enter (compile command)
+
+Backspace Backspace Backspace Backspace Backspace Backspace Backspace Backspace
+g c c SP h e l l o . c (no makefile -> use gcc to compile)
+
+C-x b h e l l o - o u t (new buffer for hello-out)
+
+C-u M-! . / a . o u t (execute hello.c executable)
+
+C-x 2 (make 2 buffer windows)
+
+C-x o (go to second buffer window)
+
+C-x b ~ / k e y 1 . t x t (open THIS file)
+
+C-o C-SP M-< C-k C-o C-y (copy contents of buffer 1 to THIS file)
+
+Contents in buffer 2:
+#include <stdio.h>
+int
+main (void)
+{
+  char n = '\n';
+  char b = '\\';
+  char q = '"';
+  char const *p = "#include <stdio.h>%cint%cmain (void)%c{%c  char n = '%cn';%c  char b = '%c%c';%c  char q = '%c';%c  char const *p = %c%s%c;%c  printf (p, n, n, n, n, b, n, b, b, n, q, n, q, p, q, n, n, n, n);%c  return 0;%c}%c";
+  printf (p, n, n, n, n, b, n, b, b, n, q, n, q, p, q, n, n, n, n);
+  return 0;
+}
+
+-----------------------------------------------------
+Exercise 1.6
+
+C-x b Enter (goto *scratch* buffer)
+(NOTE: default is set to *scratch buffer)
+
+( r a n d o m ) C-j
+	NOTE:	invokes random command
+
+( s e t q SP x SP ( r a n d o m ) ) C-j 
+	NOTE:	set global variable x
+
+C-p C-SP C-n M-w C-n C-y C-p M-f C-f DEL y C-e C-j
+	NOTE:	copy paste last command and change variable to y
+
+( * SP x SP y ) C-j
+	NOTE: 	x = 1322312796846618771
+		y = -153403547689033544
+		evaluated answer = -712517708633978456
+
+M-: ( * SP x SP y ) C-j
+	NOTE:	answer was the same but 2 additional answers in dif.
+		base systems were listed.
+
+6
+As seen the GNU Emacs manual, emacs LISP does not generate mathematically
+random numbers. Like most if not all programs, random number generation
+relies on a complicated algorithm, which follows some predictable pattern.
+This can be seen in LISP by the seed. Given a known seed, all random numbers
+generated from this seed will follow the exact same pattern. Various techniques
+can make this seed number seem more random (ex. usage of system time) but the 
+algorithm still follows some known pattern, and thus remains pseudo-random.
+
+7
+If a number was mathematically random the following would apply:
+range of values, S: [-n, . . ., 1, 0, 1, . . ., n]
+probability of any number in range S, P[O] | O is in [-n, n]: 1/(2n+1)
+probability of any number outside range, P[O] | O is in (-inf, -n)U(n, inf): 0
+total number of numbers: 2n+1
+
+Given this definition, we know that Emacs' product evaluation fails when
+numbers are very big, specifically in the range of ~20 digits. Therefore, 
+the probability that the two variable product is mathematically incorrect
+is very high unless a range is specified. Because if no range is specified,
+then any number from 0 to inf is equally likely. inf >> M (real integer) thus
+the probability that the number will arise between 0 and M, where M is the max
+value possible in emacs, is close to 0 i.e. emacs will almost never compute the
+multiplication correctly. 
+
+In the non-infinite case, if a range is specified, [-n,n] the probability of 
+emacs correctly executing multiplication, is approx. P[m] = m/(2n+1)^2, where m
+is the number of permutations where 2 numbers multiplied together is <=M and 
+>=-M, the max/min value possible in emacs. Say if n = 3, then emacs will always
+compute properly as the number will never overflow.
+
+In the GNU manual, it is stated that emacs uses 30bits. As an integer the range
+becomes [-2^29, 2^29-1], so M in this case can be taken to be 2^29-1. The max
+and min values are unequal here, but the general premise remains the same.
